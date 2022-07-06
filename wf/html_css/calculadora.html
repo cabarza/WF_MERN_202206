@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="assets/css/calculadora.css">
+        <script src="assets/js/calculadora.js"></script>
+    </head>
+    <body>
+        <div id="numeros">
+            <div>
+                <label onmouseover="alert('Pasaste el mouse por Número 1');">Número 1</label>
+                <input type="number" id="num1" onblur="alert('BLUR');"> 
+            </div>
+            <div>
+                <label>Número 2</label>
+                <input type="number" id="num2" onfocus="alert('FOCO');" style="background-color: grey;"> 
+            </div>
+            <div>
+                <label>Número 3</label>
+                <input type="number" id="num3" onchange="alert('CAMBIO')"> 
+            </div>
+            <div>
+                <label>Resultado</label>
+                <span id="resultado"></span> 
+            </div>
+        </div>
+        <div id="operaciones">
+            <button class="boton" id="btn1" onclick="ejecutarOperacion('SUMA')">+</button>
+            <button class="boton dos" id="btn2" onclick="ejecutarOperacion('RESTA')">-</button>
+            <button class="boton dos" id="btn3" onclick="ejecutarOperacion('DIVISION')">/</button>
+            <button class="boton" onclick="ejecutarOperacion('MILTIPLICACION')">*</button>
+            <button onclick="clickea(this)">Texto</button>
+        </div>
+        <div>
+            Suma: <span id="valor">0</span>
+            <button type="button" onclick="sumaUno('valor')">+1</button>
+        </div>
+        <div>
+            Suma: <span id="valor2">0</span>
+            <button type="button" onclick="sumaUno('valor2')">+1</button>
+        </div>
+        <div>
+            <button type="button" onclick="sumaUno('num3')">+1</button>
+        </div>
+        <script>
+
+            function sumaUno(id) {
+                var obj = document.getElementById(id);
+                if(obj.nodeName == 'INPUT') {
+                    var valor = +obj.value;
+                    obj.value = valor + 1;
+                } else {
+                    var valor = +obj.innerText;
+                    obj.innerText = valor + 1;
+                }                
+            }
+
+            function clickea(elemento) {
+                console.log(elemento);
+                elemento.style.color="red";
+                elemento.className="boton";
+                for(var i = 1; i<=4; i++) {
+                    console.log("Primer elemento con Clase boton", document.querySelector('#btn' + i));
+
+                }
+                console.log("Primer elemento con Clase boton", document.querySelector('.dos'));
+            }
+
+            function ejecutarOperacion(tipoOperacion){
+                var numeros = [];
+                
+
+                numeros.push(+document.getElementById('num1').value);
+                numeros.push(+document.getElementById('num2').value);
+                numeros.push(+document.getElementById('num3').value);
+                var texto;
+                switch(tipoOperacion) {
+                    case "SUMA":
+                        texto = "El resultado de la suma es <code>" + suma(numeros) + "</code>";
+                        break;
+                    case "RESTA":
+                        texto = "El resultado de la resta es " + resta(numeros);
+                        break;
+                    case "MILTIPLICACION":
+                        texto = "El resultado de la multiplicación es " + multiplicacion(numeros);
+                        break;
+                    case "DIVISION":
+                        texto = "El resultado de la división es " + division(numeros);
+                        break;
+                    default:
+                        texto = "Operación desconocida";
+                }
+                document.getElementById('resultado').innerHTML = texto;
+            }
+
+
+            function hacerSuma(){
+                var num1 = +document.getElementById('numero1').value;
+                var numero = +document.getElementById('num2').value;
+                var resultado = suma(num1, numero);
+                document.getElementById('resultado').innerText = "El resultado de la suma es " + resultado;
+            }
+
+            function hacerResta(){
+                var num1 = +document.getElementById('numero1').value;
+                var numero = +document.getElementById('num2').value;
+                var resultado = resta(num1, numero);
+                document.getElementById('resultado').innerText = "El resultado de la resta es " + resultado;
+            }
+        </script>
+    </body>
+</html>

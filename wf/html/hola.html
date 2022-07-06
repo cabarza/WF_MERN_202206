@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Mi página</title>
+    </head>
+    <body>
+        <h3>Hola <code>a</code> Tod@s!!!</h3>
+        <p>Este es un <em>párrafo</em></p>
+        <p><strong>Este es</strong> otro párrafo</p>
+
+        <form method="POST">
+            <div style="margin-bottom: 20px;">
+                <label>Texto: </label>
+                <input type="text" required minlength="5" maxlength="10" name="texto">
+            </div>
+            <div>
+                <label>Fecha: </label>
+                <input type="date">
+            </div>
+            <div>
+                <label>Número: </label>
+                <input type="number" min="10">
+            </div>
+            
+            <div>
+                <label>Color: </label>
+                <input type="color" >
+            </div>
+
+            <div>
+                <label>Genero</label>
+                <label>M: </label>
+                <input type="radio" value="m" name="rarioBtn">
+                <label>F: </label>
+                <input type="radio" value="f" name="rarioBtn">
+                <label>O: </label>
+                <input type="radio" value="o" name="rarioBtn">
+            </div>
+
+            <div>
+                <label>Nacionalidad</label>
+                <label>Chileno: </label>
+                <input id="r1" type="radio" value="cl" name="rarioBtn2" checked>
+                <label>Peruano: </label>
+                <input id="r2" type="radio" value="pe" name="rarioBtn2">
+                <label>Argentino: </label>
+                <input type="radio" value="ar" name="rarioBtn2">
+            </div>
+
+            <div>
+                <label>Lenguajes de Programación</label>
+                <label>HTML: </label>
+                <input type="checkbox" value="html" name="lp" >
+                <label>Javascript: </label>
+                <input type="checkbox" value="js" name="lp">
+                <label>Java: </label>
+                <input type="checkbox" value="java" name="lp" checked>
+            </div>
+
+            <div>
+                <label>Texto grande: </label>
+                <textarea maxlength="5"></textarea>
+            </div>
+
+            <div>
+                <label>Que me gusta mas:</label>
+                <select name="seleccion" multiple>
+                    <option value="-1">Seleccione</option>
+                    <option value="fruta">Las frutas</option>
+                    <option value="carne">Las carnes</option>
+                    <option value="lacteos">Los lácteos</option>
+                    <option value="todo">Toda la comida</option>
+                </select>
+            </div>
+
+            <div style="background-color: red; height: 30px;"></div>
+
+            <input type="submit" value="Enviar">
+        </form>
+
+
+        <a href="https://google.cl" target="_blank">Ir a Google</a>
+        <br>
+        <br>
+        <table style="width: 100%;border: 2px dashed red;">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>César</td>
+                    <td>39</td>
+                </tr>
+                <tr>
+                    <td>Juan</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>Julia</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td>Paty</td>
+                    <td>39</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <img alt="gato 1" src="https://www.purina-latam.com/sites/g/files/auxxlc391/files/styles/social_share_large/public/01_%C2%BFQu%C3%A9-puedo-hacer-si-mi-gato-est%C3%A1-triste-.png?itok=w67Nhubc" style="width: 100px;">
+        
+        <!-- Rutas relativas -->
+        <img alt="gato 2" src="./img/gato-marron_0.jpg" style="width: 300px;visibility: hidden;">
+
+        <img alt="gato 3" src="../img2/index.jpeg">
+        <!-- Rutas absolutas -->
+        <img src="/mnt/HDD/Personal/Servicios/Coding Dojo/202206_WF_MERN/codigos/wf/img2/index.jpeg" alt="gato3">
+
+        <video src="../../../Clases/WF/20220607.mp4" controls style="width: 500px; height: 500px;"></video>
+
+    </body>
+</html>
