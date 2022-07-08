@@ -1,0 +1,49 @@
+<html>
+    <head>
+
+    </head>
+    <body onload="cargar();">
+        <select id="tipos">
+            <option value="">Seleccione</option>
+        </select>
+        <input type="text" id="valor">
+        <button type="button" onclick="buscar()">Cargar</button>
+
+        <div id="data"></div>
+        <script>
+            function cargar() {
+                fetch('https://swapi.dev/api/')
+                    .then(resp => resp.json())
+                    .then(data => {
+                        var datos = '';
+                        if(data){                            
+                            for(var d in data) {
+                                datos += '<option value="'+ data[d] +'">'+ d +'</option>';
+                            }
+                        }
+                        document.querySelector("#tipos").innerHTML=document.querySelector("#tipos").innerHTML + datos;
+                    });
+            }
+
+            function buscar() {
+                var tipo = document.querySelector("#tipos").value;
+                var valor = document.querySelector("#valor").value;
+                console.log('TIPO', tipo);
+                console.log('VALOR', valor);
+                fetch(tipo+valor)
+                    .then(resp => resp.json())
+                    .then(data => {
+                        var datos = '';
+                        if(data){                            
+                            for(var d in data) {
+                                datos += d + ':' + data[d] + ' \n';
+                            }
+                        }
+                        document.querySelector("#data").innerText=datos;
+                    })
+
+            }
+
+        </script>
+    </body>
+</html>

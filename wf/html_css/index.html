@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="assets/css/estilo.css"/>
     </head>
-    <body>
+    <body id="body">
         <h1 class="enLinea">Hola</h1>
         <h2 class="enLinea">Como estan?</h2>
         <div id="separador">
@@ -20,5 +20,14 @@
         <div class="test">
             <h1>texto</h1>
         </div>
+        <button onclick="cambiarBody()">Cambiar</button>
+        <script>
+            function cambiarBody() {
+                var body = document.querySelector('#body');
+                console.log(body);
+                body.innerHTML=body.innerHTML + '<h1>Cambio Valor</h1>';
+            }
+
+        </script>
     </body>
 </html>
