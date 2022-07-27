@@ -1,21 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Primero from './componentes/primero/Primero';
+import { Button } from 'reactstrap';
 
 class App extends React.Component {
-
 
   constructor(props) {
     super(props);
     this.state = {
       nombre: '',
-      apellido: ''
+      apellido: '',
+      edad:10
     }
   }
 
-  clickMe= (e) => {
-    alert('Este evento corresponde a un click pero como función');
+  clickMe = (e) => {
+    this.setState({
+      ...this.state, edad: this.state.edad+1
+    })
   }
 
 
@@ -33,11 +35,18 @@ class App extends React.Component {
     e.preventDefault();
   }
 
+  restarEdad = (e) => {
+    this.setState({
+      ...this.state, edad: this.state.edad-1
+    })
+}
+
   render() {
     return (
       <div className="App">
         <h1> Esta es mi primer REACT </h1>
-        <Primero titulo={'Estes es un props'} objeto={{nombre: 'OBJ', tipo:'Cualquiera'}} nombre={this.state.nombre} apellido={this.state.apellido}>
+        <Primero titulo={'Estes es un props'} objeto={{nombre: 'OBJ', tipo:'Cualquiera'}} 
+          nombre={this.state.nombre} apellido={this.state.apellido} edad={this.state.edad} funcion={this.restarEdad}>
             <ul>
               <li>Este es un hijo</li>
               <li>Este es otro hijo</li>
@@ -50,7 +59,7 @@ class App extends React.Component {
           <button type='submit'>Enviar</button>
         </form>
 
-        <button type='button' onClick={this.clickMe}>Click Me!!!</button>
+        <Button type='button' onClick={this.clickMe}>Click Me!!!</Button>
 
       </div>
     );
