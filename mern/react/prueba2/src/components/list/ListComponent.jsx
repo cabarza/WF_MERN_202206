@@ -1,9 +1,12 @@
 
+import { useEffect, useState } from 'react';
 import {Col, Row, Button, Table} from 'react-bootstrap';
 import {TbTrashX} from 'react-icons/tb';
 import Swal from 'sweetalert2';
 
-const ListComponent =({arreglo, setArreglo}) => {
+const ListComponent =({arreglo, setArreglo, filtro}) => {
+
+    const [lista, setLista] = useState([]);
 
     const eliminar = (e, i) => {
         Swal.fire({
@@ -20,6 +23,10 @@ const ListComponent =({arreglo, setArreglo}) => {
         })
     }
 
+    useEffect(()=>{
+        setLista(arreglo.filter(e => (''+e).toLowerCase().indexOf(filtro.toLowerCase())>=0));
+    }, [filtro]);
+
     return (
        <Row>
         <Col xs={12}>
@@ -31,7 +38,7 @@ const ListComponent =({arreglo, setArreglo}) => {
                 </tr>
             </thead>
             <tbody>
-                  {arreglo.map((valor, index) => <tr>
+                  {lista.map((valor, index) => <tr key={index}>
                     <td>{valor}</td>
                     <td><TbTrashX onClick={e => eliminar(e, index)}></TbTrashX></td>
                 </tr>)}  
