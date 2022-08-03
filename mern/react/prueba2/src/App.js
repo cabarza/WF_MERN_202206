@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <Container>
-      {/* <Row>
+      <Row>
         <SearchComponent setFiltroPadre={setFiltroPadre}></SearchComponent>
       </Row>
       <Row>
@@ -38,8 +38,8 @@ const App = () => {
         <Col sm={6} md={3}><Button type='button' onClick={aumentar}>Aumentar</Button></Col>
         <Col sm={6} md={3}><Button type='button' variant="danger" onClick={disminuir}>Disminuir</Button></Col>
       </Row>
-      <ListComponent arreglo={arreglo} setArreglo={setArreglo} filtro={filtroPadre}/> */}
-      <FormComponent/>
+      <ListComponent arreglo={arreglo} setArreglo={setArreglo} filtro={filtroPadre}/>
+      {/* <FormComponent/> */}
     </Container>
   );
 }
