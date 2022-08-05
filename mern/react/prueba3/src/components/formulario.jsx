@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
 const estadoInicial = {
     nombre:'',
@@ -11,6 +12,8 @@ const Formulario = ({agregarFn, dato, editarFn}) => {
 
     const [formulario, setFormulario] = useState(estadoInicial);
     const [edicion, setEdicion] = useState(false);
+
+    const navigate = useNavigate();
 
     const actualizaFormulario = ({target: {name, value}}) => {
         setFormulario({
@@ -29,13 +32,11 @@ const Formulario = ({agregarFn, dato, editarFn}) => {
             resp = editarFn(formulario);
         }
         if(resp) {
-            setEdicion(false);
-            setFormulario(estadoInicial);
+            navigate('/');
         }
     }
 
     useEffect(()=> {
-        console.log('USE EFFECT ', dato);
         if(dato && dato.indice >= 0) {
             setEdicion(true);
             setFormulario(dato);
@@ -60,6 +61,7 @@ const Formulario = ({agregarFn, dato, editarFn}) => {
 
                 <Row>
                     <Col><Button variant="primary" type="submit">{edicion?'Guardar':'Crear'}</Button></Col>
+                    <Col><Link className="btn btn-secondary" to={'/'}>Volver</Link></Col>
                 </Row>
             </Form>            
         </React.Fragment>

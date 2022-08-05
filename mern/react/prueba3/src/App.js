@@ -1,14 +1,23 @@
-import React, {useState} from 'react';
-import { Container } from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import { Container, Row } from 'react-bootstrap';
 import './App.css';
 import Formulario from './components/formulario';
 import Listado from './components/listado';
 import Swal from 'sweetalert2';
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Cabecera from './components/cabecera';
+import Contexto from './contexts/contexto';
 
 function App() {
 
   const [data, setData] = useState([]);
   const [obj, setObj] = useState({});
+  const [usuario, setUsuario] = useState({
+    nombre: 'Juan',
+    email: 'jj@jj.cl'
+})
+
+  const navigate = useNavigate();
 
 
   const agregar = (obj) => {
@@ -44,14 +53,30 @@ function App() {
 
   const irAEditar = (dato, i) => {
     setObj({...dato, indice: i});
+    navigate('/edit');
+
   }
 
+  useEffect(()=> {
+    setTimeout(()=>{
+      setUsuario({
+        nombre: 'Camila',
+        email: 'camila@test.cl'
+      })
+    }, 5000)
+  }, [])
+
   return (
-    <Container>
-      <Formulario agregarFn={agregar} dato={obj} editarFn={editar}/>
-      <hr/>
-      <Listado data={data} eliminarFn={eliminar} irAEditarFn={irAEditar} />
-    </Container>
+      <Contexto.Provider value={{usuario: usuario, texto: 'Esta es otra prueba'}}>
+        <Container>
+          <Cabecera/>
+          <Routes>
+            <Route path='/' element={<Listado data={data} eliminarFn={eliminar} irAEditarFn={irAEditar} />} />
+            <Route path='/add' element={<Formulario agregarFn={agregar}/>} /> 
+            <Route path='/edit' element={<Formulario dato={obj} editarFn={editar}/>} /> 
+          </Routes>
+        </Container>
+      </Contexto.Provider>
   );
 }
 
