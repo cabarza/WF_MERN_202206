@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 const estadoInicial = {
     nombre:'',
     email: '',
-    fono:''
+    fono:'',
+    eliminado: false
 }
 
 const Formulario = ({agregarFn, dato, editarFn}) => {

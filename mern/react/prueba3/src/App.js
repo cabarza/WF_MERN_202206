@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Cabecera from './components/cabecera';
 import Contexto from './contexts/contexto';
+import axios from 'axios';
 
 function App() {
 
@@ -21,7 +22,10 @@ function App() {
 
 
   const agregar = (obj) => {
-    setData([...data, obj]);
+    axios.post('http://localhost:8000/api/v1/personas', obj)
+      .then(resp => {
+        setData([...data, resp.data.data]);
+      })
   }
   
   const editar = (obj) => {
@@ -46,7 +50,9 @@ function App() {
 
     }).then(resp => {
       if(resp.isConfirmed){
-        setData(data.filter((d, i) => i != indice));
+      // setData(data.filter((d, i) => i != indice));
+        data[indice].eliminado = true;
+        setData([...data]);
       }
     })
   }
@@ -58,12 +64,17 @@ function App() {
   }
 
   useEffect(()=> {
-    setTimeout(()=>{
-      setUsuario({
-        nombre: 'Camila',
-        email: 'camila@test.cl'
+    // setTimeout(()=>{
+    //   setUsuario({
+    //     nombre: 'Camila',
+    //     email: 'camila@test.cl'
+    //   })
+    // }, 5000)
+
+    axios.get('http://localhost:8000/api/v1/personas')
+      .then(resp => {
+        setData(resp.data.data);
       })
-    }, 5000)
   }, [])
 
   return (
