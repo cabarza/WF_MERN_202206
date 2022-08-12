@@ -22,37 +22,48 @@ function App() {
 
 
   const agregar = (obj) => {
-    axios.post('http://localhost:8000/api/v1/personas', obj)
+    return axios.post('http://localhost:8000/api/v1/personas', obj)
       .then(resp => {
         setData([...data, resp.data.data]);
-      })
+        return true;
+      }).catch(error => {
+        Swal.fire('Opps!!!', error, 'error')
+        return false;
+      });
   }
   
   const editar = (obj) => {
     if(obj.indice>=0) {
-      let arr = [...data];
-      arr.splice(obj.indice, 1, obj);
-      setData(arr);
-      return true;
+      return axios.put(`http://localhost:8000/api/v1/personas/${obj._id}`, obj)
+      .then(resp => {
+        let arr = [...data];
+        arr.splice(obj.indice, 1, obj);
+        setData(arr);
+        return true;
+      }).catch(error => {
+        Swal.fire('Opps!!!', error, 'error')
+        return false;
+      });
     } else {
       Swal.fire('Editar', 'Error al editar los datos', 'error');
       return false;
     }
   }
 
-  const eliminar = (nombre, indice) =>{
+  const eliminar = (nombre, id) =>{
     Swal.fire({
       title: 'Eliminar', 
-      text: `¿Está seguro que desea eliminar el elemento ${nombre} en la posición ${indice}`, 
+      text: `¿Está seguro que desea eliminar el elemento ${nombre} con el id ${id}`, 
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si eliminar!!!'
 
     }).then(resp => {
       if(resp.isConfirmed){
-      // setData(data.filter((d, i) => i != indice));
-        data[indice].eliminado = true;
-        setData([...data]);
+        axios.delete(`http://localhost:8000/api/v1/personas/${id}`)
+        .then(resp => {
+          setData(data.filter(d => d._id != id))
+        }).catch(error => Swal.fire('Opps!!!', error, 'error'))
       }
     })
   }

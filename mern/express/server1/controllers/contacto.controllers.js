@@ -28,7 +28,7 @@ module.exports.crear = (req, res) => {
 }
 
 module.exports.actualizar = (req, res) => {
-    Contact.findByIdAndUpdate(req.params.id, req.body)
+    Contact.findByIdAndUpdate(req.params.id, req.body, { runValidators: true })
     .then(data => {
         res.json({data: req.body})
     }).catch(error => {

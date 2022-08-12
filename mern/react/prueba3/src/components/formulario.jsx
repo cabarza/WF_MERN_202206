@@ -24,13 +24,13 @@ const Formulario = ({agregarFn, dato, editarFn}) => {
     }
 
 
-    const guardar= e => {
+    const guardar= async e => {
         e.preventDefault();
         let resp = true;
         if(!edicion) {
-            agregarFn(formulario);
+            resp = await agregarFn(formulario);
         } else {
-            resp = editarFn(formulario);
+            resp = await editarFn(formulario);
         }
         if(resp) {
             navigate('/');

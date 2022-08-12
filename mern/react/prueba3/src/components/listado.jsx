@@ -19,7 +19,7 @@ const Listado = ({data, eliminarFn, irAEditarFn}) => {
                 <tbody>
                     {data && data.map((dato, i) => <tr key={i}>
                             <td><AiFillEdit color="blue" onClick={e => irAEditarFn(dato, i)}/></td>
-                            <td><AiFillDelete color="red" onClick={e => eliminarFn(dato.nombre, i)}></AiFillDelete></td>
+                            <td><AiFillDelete color="red" onClick={e => eliminarFn(dato.nombre, dato._id)}></AiFillDelete></td>
                             <td style={{textDecoration: dato.eliminado?'line-through':''}}>{dato.nombre}</td>
                             <td>{dato.email}</td>
                             <td>{dato.fono}</td>

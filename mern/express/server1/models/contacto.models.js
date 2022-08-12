@@ -21,7 +21,7 @@ const ContactoSchema = mongoose.Schema({
         type: Number,
         max:[999, 'El numero máximo es 999']
     }
-}, {timestamp: true});
+}, {timestamps: true});
 
 const Contacto = mongoose.model('Contact', ContactoSchema);
 
