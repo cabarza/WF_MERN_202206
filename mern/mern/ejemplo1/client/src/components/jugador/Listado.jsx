@@ -1,6 +1,8 @@
 import { Table } from "reactstrap";
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai'
+import { Link } from "react-router-dom";
 
-const Listado = ({datos}) => {
+const Listado = ({datos, eliminarFn}) => {
 
     return (
         <Table>
@@ -8,7 +10,8 @@ const Listado = ({datos}) => {
                 <tr>
                     <th>Nombre</th>
                     <th>Posición</th>
-                    <th>Acción</th>
+                    <th>Eliminar</th>
+                    <th>Editar</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,7 +19,8 @@ const Listado = ({datos}) => {
                     <tr key={i}>
                         <td>{j.nombre}</td>
                         <td>{j.posicion}</td>
-                        <td></td>
+                        <td><AiFillDelete color="red" onClick={e => eliminarFn(j)}/> </td>
+                        <td><Link to={`/jugador/editar/${j._id}`} ><AiFillEdit color="blue"/> </Link></td>
                     </tr>
                 ))}
             </tbody>
