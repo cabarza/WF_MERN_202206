@@ -44,7 +44,7 @@ const Formulario = ({crearFn, editarFn}) => {
 
     useEffect(() => {
         if(id) {
-            axios.get(`http://localhost:8000/api/v1/jugadores/${id}`)
+            axios.get(`/api/v1/jugadores/${id}`)
                 .then(resp => {
                     if(!resp.data.error) {
                         setFormulario(resp.data.datos);

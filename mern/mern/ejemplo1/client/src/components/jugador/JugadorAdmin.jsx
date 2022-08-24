@@ -14,7 +14,7 @@ const JugadorAdmin = () => {
     const [recargar, setRecargar] = useState(false);
 
     const crear = (jugador) => {
-        return axios.post('http://localhost:8000/api/v1/jugadores', jugador)
+        return axios.post('/api/v1/jugadores', jugador)
             .then(resp => {
                 if(!resp.data.error) {
                     setDatos([...datos, resp.data.datos]);
@@ -27,7 +27,7 @@ const JugadorAdmin = () => {
     }
 
     const editar = (jugador) => {
-        return axios.put(`http://localhost:8000/api/v1/jugadores/${jugador._id}`, jugador)
+        return axios.put(`/api/v1/jugadores/${jugador._id}`, jugador)
             .then(resp => {
                 if(!resp.data.error) {
                     setRecargar(!recargar);
@@ -50,7 +50,7 @@ const JugadorAdmin = () => {
             cancelButtonColor:'green'
         }).then(resp => {
             if(resp.isConfirmed) {
-                axios.delete(`http://localhost:8000/api/v1/jugadores/${jugador._id}`)
+                axios.delete(`/api/v1/jugadores/${jugador._id}`)
                     .then(respuesta => {
                         if(!respuesta.data.error) {
                             setRecargar(!recargar);
@@ -64,7 +64,7 @@ const JugadorAdmin = () => {
 
 
     useEffect(()=> {
-        axios.get('http://localhost:8000/api/v1/jugadores')
+        axios.get('/api/v1/jugadores')
           .then(resp => {
             if(!resp.data.error) {
                 setDatos(resp.data.datos);
