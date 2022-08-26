@@ -13,6 +13,7 @@ require('./config/mong.config');
 
 require('./routes/jugador.route')(app);
 require('./routes/usuario.route')(app);
+require('./routes/juego.route')(app);
 
 
 app.listen(port, () => console.log('Server Up on port ' + port));
