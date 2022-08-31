@@ -16,4 +16,14 @@ require('./routes/usuario.route')(app);
 require('./routes/juego.route')(app);
 
 
-app.listen(port, () => console.log('Server Up on port ' + port));
+const server = app.listen(port, () => console.log('Server Up on port ' + port));
+
+const io = require('socket.io')(server);
+
+io.on('connection', socket => {
+    console.log('CONNECTION', socket.id);
+    socket.on('cambioEstado', data => {
+        console.log('Evento cambioEstado', data);
+        socket.broadcast.emit('notificaCambioestado', data);
+    });
+})

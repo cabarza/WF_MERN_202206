@@ -6,13 +6,14 @@ import Login from './components/registro/login';
 import Registro from './components/registro/registro';
 import UserContext from './components/contextos/user-context';
 import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
 
 function App() {
 
   const navigate = useNavigate(); 
 
   const [usuario, setUsuario] = useState();
-
+  const [socket] = useState(io());
 
   useEffect(() => {
     if(!usuario) {
@@ -28,7 +29,7 @@ function App() {
 
   return (
 
-    <UserContext.Provider value={{usuario, setUsuario}}>
+    <UserContext.Provider value={{usuario, setUsuario, socket}}>
       <Container>
 
         <Routes>
