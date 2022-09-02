@@ -1,7 +1,9 @@
 const Jugador = require('../models/jugador.model');
+const jwt = require('jsonwebtoken');
+const { secretKey } = require('../config/jwt.config')
 
 module.exports.listar = (req, res) => {
-    Jugador.find()
+    Jugador.find().populate('usuario')
         .then(resp => {
             res.json({
                 datos: resp,
@@ -31,6 +33,8 @@ module.exports.obtener = (req, res) => {
 }
 
 module.exports.crear = (req, res) => {
+    const payload = jwt.decode(req.cookies.usertoken, secretKey);
+    req.body.usuarioId = payload._id;
     Jugador.create(req.body)
         .then(resp => {
             res.json({

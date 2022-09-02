@@ -41,7 +41,7 @@ module.exports.login = (req, res) => {
                             email: usuario.email
                         }
                         const newJWT = jwt.sign(payload, secretKey);
-                          res
+                        res
                             .cookie("usertoken", newJWT, secretKey, {
                               httpOnly: true
                             })
