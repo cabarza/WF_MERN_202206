@@ -13,7 +13,7 @@ function App() {
   const navigate = useNavigate(); 
 
   const [usuario, setUsuario] = useState();
-  const [socket] = useState(io());
+  // const [socket] = useState(io());
 
   useEffect(() => {
     if(!usuario) {
@@ -29,7 +29,7 @@ function App() {
 
   return (
 
-    <UserContext.Provider value={{usuario, setUsuario, socket}}>
+    <UserContext.Provider value={{usuario, setUsuario}}>
       <Container>
 
         <Routes>

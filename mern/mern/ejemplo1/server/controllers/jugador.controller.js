@@ -1,6 +1,7 @@
 const Jugador = require('../models/jugador.model');
 const jwt = require('jsonwebtoken');
-const { secretKey } = require('../config/jwt.config')
+const { secretKey } = require('../config/jwt.config');
+const fs = require("fs");
 
 module.exports.listar = (req, res) => {
     Jugador.find().populate('usuario')
@@ -78,4 +79,11 @@ module.exports.actualizar = (req, res) => {
                 mensaje: 'Ha ocurrido un error'
             })
         });
+}
+
+
+module.exports.upload = (req, res, next) => {
+    const path = global.__basedir + "/" +  req.file.path;
+    res.download(path, req.file.path);
+    fs.rm(path, (err) => console.log(err));
 }

@@ -7,6 +7,7 @@ import Listado from "./Listado";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Formulario from "./Formulario";
+import FileUpload from "./FileUpload";
 
 
 const JugadorAdmin = () => {
@@ -80,6 +81,9 @@ const JugadorAdmin = () => {
             <Row>
                 <Col><Link to={'/jugador/listado'}>Listado</Link></Col>
                 <Col><Link to={'/jugador/nuevo'}>Nuevo Jugador</Link></Col>
+            </Row>
+            <Row>
+                <FileUpload />
             </Row>
             <Routes>
                <Route path="listado" element={<Listado datos={datos} eliminarFn={eliminar}/>} />
