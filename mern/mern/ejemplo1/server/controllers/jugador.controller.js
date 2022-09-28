@@ -38,7 +38,6 @@ module.exports.crear = (req, res) => {
     const path = global.__basedir + "/" +  req.file.path;
     req.body.avatar = path;
     req.body.usuarioId = payload._id;
-    console.log(req.body);
     Jugador.create(req.body)
         .then(resp => {
             res.json({
@@ -70,18 +69,30 @@ module.exports.eliminar = (req, res) => {
 
 
 module.exports.actualizar = (req, res) => {
-    Jugador.findByIdAndUpdate(req.params.id, req.body, { runValidators:true })
-        .then(resp => {
-            res.json({
-                datos: req.datos,
-                error: false
-            })
-        }).catch(e => {
-            res.json({
-                error: true,
-                mensaje: 'Ha ocurrido un error'
-            })
-        });
+    Jugador.findById(req.params.id)
+        .then(jugador => {
+            if(req.file){
+                const path = global.__basedir + "/" +  req.file.path;
+                req.body.avatar = path;
+            } else {
+                req.body.avatar = jugador.avatar;
+            }
+            Jugador.findByIdAndUpdate(req.params.id, req.body, { runValidators:true })
+                .then(resp => {
+                    res.json({
+                        datos: req.datos,
+                        error: false
+                    })
+                }).catch(e => {
+                    res.json({
+                        error: true,
+                        mensaje: 'Ha ocurrido un error'
+                    })
+                });
+        })
+    
+    
+    
 }
 
 

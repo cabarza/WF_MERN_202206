@@ -19,7 +19,7 @@ const JugadorAdmin = () => {
         }})
             .then(resp => {
                 if(!resp.data.error) {
-                    setDatos([...datos, resp.data.datos]);
+                    setRecargar(!recargar);
                     return true;
                 } else {
                     Swal.fire('Ooops!!!', resp.data.mensaje, 'error');
@@ -28,8 +28,11 @@ const JugadorAdmin = () => {
             })
     }
 
-    const editar = (jugador) => {
-        return axios.put(`/api/v1/jugadores/${jugador._id}`, jugador)
+    const editar = (jugador, id) => {
+        console.log(jugador);
+        return axios.put(`/api/v1/jugadores/${id}`, jugador, {headers: {
+            'content-type': 'form/multipart-data'
+        }})
             .then(resp => {
                 if(!resp.data.error) {
                     setRecargar(!recargar);

@@ -3,12 +3,13 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { Button, Col, Form, FormGroup, Input, Label, Row } from "reactstrap";
 import Swal from "sweetalert2";
 
 const dataInicial = {
     nombre: '',
-    posicion: ''
+    posicion: '',
+    img: null
 }
 
 const Formulario = ({crearFn, editarFn}) => {
@@ -29,15 +30,13 @@ const Formulario = ({crearFn, editarFn}) => {
 
     const guardar = async e => {
         e.preventDefault();
-        // crearFn(formulario)
-        //     .then(resp => console.log(resp));
         let respuesta = false;
         const formData = new FormData(e.target);
 
         if(!id) {
             respuesta = await crearFn(formData);
         } else {
-            respuesta = await editarFn(formulario);
+            respuesta = await editarFn(formData, formulario._id);
         }
         if(respuesta) {
             navigate('/jugador/listado')
@@ -49,7 +48,19 @@ const Formulario = ({crearFn, editarFn}) => {
             axios.get(`/api/v1/jugadores/${id}`)
                 .then(resp => {
                     if(!resp.data.error) {
-                        setFormulario(resp.data.datos);
+                        if(resp.data.datos.avatar){
+                            axios.get(`/api/v1/jugadores/${resp.data.datos._id}/avatar`, {responseType:'blob'})
+                            .then(r=> {
+                                const reader = new FileReader();
+                                reader.readAsDataURL(new Blob([r.data]));
+                                reader.onloadend = () => {
+                                    resp.data.datos.img=reader.result;
+                                    setFormulario(resp.data.datos);
+                                };
+                            })
+                        } else {
+                            setFormulario(resp.data.datos);
+                        }
                     } else {
                         Swal.fire('Ooops!!!', resp.data.mensaje, 'error');
                     }
@@ -68,11 +79,17 @@ const Formulario = ({crearFn, editarFn}) => {
                     <Label>Posición</Label>
                     <Input type="text" name="posicion" maxLength={30} value={formulario.posicion} onChange={actualizarFormulario}/>
                 </FormGroup>
-                <FormGroup>
-                    <Label>Avatar</Label>
-                    <Input type="file" name="avatar" required/>
-                </FormGroup>
-                
+                <Row>
+                    <Col xs={12} md={9}>
+                        <FormGroup>
+                            <Label>Avatar</Label>
+                            <Input type="file" name="avatar"/>
+                        </FormGroup>
+                    </Col>
+                    <Col xs={12} md={3}>
+                        {formulario?.img && <img src={formulario.img} style={{width:'100px'}}/>}
+                    </Col>
+                </Row>
                 <Button type="submit">Guardar</Button>
             </Form>
         </React.Fragment>
