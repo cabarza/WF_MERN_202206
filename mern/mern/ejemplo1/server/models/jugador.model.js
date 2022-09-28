@@ -13,7 +13,8 @@ const JugadorSchema = mongoose.Schema({
     usuarioId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Usuario"
-    }
+    },
+    avatar: String
 
 }, {timestamps: true});
 

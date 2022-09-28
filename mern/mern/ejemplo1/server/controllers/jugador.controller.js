@@ -35,7 +35,10 @@ module.exports.obtener = (req, res) => {
 
 module.exports.crear = (req, res) => {
     const payload = jwt.decode(req.cookies.usertoken, secretKey);
+    const path = global.__basedir + "/" +  req.file.path;
+    req.body.avatar = path;
     req.body.usuarioId = payload._id;
+    console.log(req.body);
     Jugador.create(req.body)
         .then(resp => {
             res.json({
@@ -86,4 +89,13 @@ module.exports.upload = (req, res, next) => {
     const path = global.__basedir + "/" +  req.file.path;
     res.download(path, req.file.path);
     fs.rm(path, (err) => console.log(err));
+}
+
+module.exports.avatar = (req, res) => {
+    Jugador.findById(req.params.id)
+        .then(resp => {
+            if(resp?.avatar) {
+                res.download(resp.avatar);
+            }
+        })
 }

@@ -32,8 +32,10 @@ const Formulario = ({crearFn, editarFn}) => {
         // crearFn(formulario)
         //     .then(resp => console.log(resp));
         let respuesta = false;
+        const formData = new FormData(e.target);
+
         if(!id) {
-            respuesta = await crearFn(formulario);
+            respuesta = await crearFn(formData);
         } else {
             respuesta = await editarFn(formulario);
         }
@@ -66,6 +68,11 @@ const Formulario = ({crearFn, editarFn}) => {
                     <Label>Posición</Label>
                     <Input type="text" name="posicion" maxLength={30} value={formulario.posicion} onChange={actualizarFormulario}/>
                 </FormGroup>
+                <FormGroup>
+                    <Label>Avatar</Label>
+                    <Input type="file" name="avatar" required/>
+                </FormGroup>
+                
                 <Button type="submit">Guardar</Button>
             </Form>
         </React.Fragment>

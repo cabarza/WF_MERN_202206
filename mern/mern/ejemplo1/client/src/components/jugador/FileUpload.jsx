@@ -14,6 +14,7 @@ const FileUpload = props => {
 
     const fileUpload = e => {
         e.preventDefault();
+        console.log(e);
         const formData = new FormData();
     
         // Update the formData object
@@ -27,7 +28,6 @@ const FileUpload = props => {
                 const reader = new FileReader();
                 reader.readAsDataURL(new Blob([resp.data]));
                 reader.onloadend = () => {
-                    console.log(reader.result);
                     setUploadedFile(reader.result);
                 };
             });
@@ -37,9 +37,9 @@ const FileUpload = props => {
 
     return (
         <React.Fragment>
-            <Form method='POST' encType="multipart/form-data" onSubmit={fileUpload}>
+            <Form encType="multipart/form-data" onSubmit={fileUpload}>
                 <Input type="file" name="archivo" onChange={fileSelected}/>
-                <Input type='submit'>Subir</Input>
+                <Input type='submit' value="Subir"></Input>
             </Form>
             <img src={uploadedFile} />
 
